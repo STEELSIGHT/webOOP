@@ -1,7 +1,7 @@
 package ai185.voznyuk.kursach.service;
 
-import ai185.voznyuk.kursach.StudentDetails;
-import ai185.voznyuk.kursach.TeacherDetails;
+import ai185.voznyuk.kursach.details.StudentDetails;
+import ai185.voznyuk.kursach.details.TeacherDetails;
 import ai185.voznyuk.kursach.model.Student;
 import ai185.voznyuk.kursach.model.Teacher;
 import ai185.voznyuk.kursach.repository.StudentRepository;

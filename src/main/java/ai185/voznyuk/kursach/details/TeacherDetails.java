@@ -1,4 +1,4 @@
-package ai185.voznyuk.kursach;
+package ai185.voznyuk.kursach.details;
 
 import ai185.voznyuk.kursach.model.Student;
 import ai185.voznyuk.kursach.model.Teacher;
