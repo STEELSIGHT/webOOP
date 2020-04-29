@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать список предметов</title>
+    <style>
+        .form{
+            margin:0 auto;
+            max-width:95%;
+            box-sizing:border-box;
+            padding:40px;
+            border-radius:5px;
+            background:RGBA(255,255,255,1);
+            -webkit-box-shadow:  0px 0px 15px 0px rgba(0, 0, 0, .45);
+            box-shadow:  0px 0px 15px 0px rgba(0, 0, 0, .45);
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Дистанционное обучение</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05"
+            aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExample05">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/department}">Главная</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{~/department/group}">Группы</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " th:href="@{~/department/list}">Список предметов</a>
+            </li>
+
+
+        </ul>
+        <form class="form-inline my-2 my-lg-0" action="#" th:action="@{/logout}" method="post">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Выйти</button>
+        </form>
+    </div>
+</nav>
+<div class="container">
+    <div class="py-5 text-center">
+        <h2 >Редактирование списка предметов для </h2><h2 th:text="${thisGroup.nameGroup}"></h2>
+        <p class="lead">Заполните поля и нажмите кнопку 'Добавить преподавателя'</p>
+    </div>
+
+    <div class="form">
+        <div class="row">
+            <p class="col-md-4 mb-3 ml-3" >Названия предмета:</p>
+            <p class="col-md-4 mb-3 " >Преподаватель:</p>
+        </div>
+    <form   th:each="subject1:${thisGroup.getListSubject()}"  method="post" class="needs-validation" th:action="@{~/department/edit_list(id=${thisGroup.group_id})}">
+        <div class="row">
+        <div class="col-md-4 mb-3" >
+            <input  type="text" class="form-control" id="nameSubject" name="nameSubject" th:value="${subject1.nameSubject}">
+        </div>
+            <div class="col-md-4 mb-3" >
+                <select   class="custom-select custom-select-md" name="teacherId">
+                    <div th:each="teacher1:${listTeacher}">
+                        <option th:value="${teacher1.id}" th:text="${teacher1.selectTeacher()}" th:if="${teacher1.id==subject1.getTeacher().id}" selected></option>
+                        <option th:value="${teacher1.id}" th:text="${teacher1.selectTeacher()}" th:if="${teacher1.id!=subject1.getTeacher().id}"></option>
+                    </div>
+                </select>
+                <input type="hidden" th:value="${subject1.id}"name="subjectId">
+            </div>
+            <div class="col col-md-3 mb-3 pr-0">
+                <button class="btn btn-primary btn-md btn-block " type="submit" value="Submit">Редактировать</button>
+            </div>
+            <div class="col col-md-1 mb-3 pl-4">
+                <a class="btn btn-secondary btn-block" th:href="@{~/department/delete_subject(id=${subject1.id})}" role="button">X</a>
+            </div>
+        </div>
+
+    </form>
+    <form   th:object="${subject}"  method="post" class="needs-validation" th:action="@{~/department/add_list(id=${thisGroup.group_id})}">
+        <div class="row">
+            <div class="col-md-4 mb-3" >
+                <input th:field="*{nameSubject}" type="text" class="form-control" id="nameSubject2"  >
+                <small class="text-danger" th:if="error" th:text="${error}"/>
+            </div>
+            <div class="col-md-4 mb-3" >
+                <select th:field="*{teacher.id}"  class="custom-select custom-select-md">
+                    <div th:each="teacher1:${listTeacher}">
+                        <option th:value="${teacher1.id}" th:text="${teacher1.selectTeacher()}"></option>
+                    </div>
+                </select>
+            </div>
+            <div class="col col-md-4 mb-3">
+                <button class="btn btn-primary btn-md btn-block" type="submit" value="Submit">Добавить</button>
+            </div>
+        </div>
+    </form>
+
+    </div>
+</div>
+</body>
+</html>

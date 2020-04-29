@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Группы</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Дистанционное обучение</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05"
+            aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExample05">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{~/department}">Главная</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Группы</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " th:href="@{~/department/list}">Список предметов</a>
+            </li>
+
+
+        </ul>
+        <form class="form-inline my-2 my-lg-0" action="#" th:action="@{/logout}" method="post">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Выйти</button>
+        </form>
+    </div>
+</nav>
+<div class="row justify-content-end">
+    <div class="col-md-auto">
+        <a th:href="@{~/department/add_group}" class="btn btn-lg btn-block btn-outline-primary" role="button"
+           aria-disabled="true">Добавить группу</a>
+    </div>
+</div>
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>Управление группами</h2>
+        <p class="lead">На данной странице вы можете добавить, редактировать группы студентов</p>
+    </div>
+    <div class="text-right"> <small class="text-danger" th:if="error_delete_group" th:text="${error_delete_group}"/></div>
+    <div th:each="group : ${groups}">
+    <div class="row">
+        <div class="col">
+            <h2 th:text="${group.nameGroup}"></h2>
+        </div>
+        <div class="col col-lg-3">
+            <a th:href="@{~/department/delete_group(id=${group.group_id})}" class="btn btn-lg btn-block btn-outline-primary " role="button"
+               aria-disabled="true">Удалить группу</a>
+        </div>
+    </div>
+
+    <br/>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th class="text-justify">#</th>
+                <th class="text-justify">Фамилия</th>
+                <th class="text-justify">Имя</th>
+                <th class="text-justify">День рождения</th>
+                <th class="text-justify">Группа</th>
+                <th class="text-justify">Имя пользователя</th>
+                <th class="text-justify">Пароль</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="student : ${group.students}">
+                <td class="align-middle"><span th:text="${student.id}"/></td>
+                <td class="align-middle"><span th:text="${student.lastName}"/></td>
+                <td class="align-middle"><span th:text="${student.firstName}"/></td>
+                <td class="align-middle"><span th:text="${student.patronymic}"/></td>
+                <td class="align-middle">
+                    <span th:text="${student.group.nameGroup}"/>
+                </td>
+                <td class="align-middle"><span th:text="${student.username}"/></td>
+                <td class="align-middle"><span th:text="${student.password}"/></td>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+
+</body>
+</html>
