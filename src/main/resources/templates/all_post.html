@@ -67,7 +67,7 @@
             </tr>
             </tbody>
         </table>
-            <input type="file" name="file" class="form-control-file mb-4">
+            <input type="file" name="file" th:id="${teacherPost.id}" onchange='showFileSize(this.id);' class="form-control-file mb-4">
         </div>
         <div class="form-group mb-3">
             <label for="inputState">Предмет,группа:</label>
@@ -84,6 +84,20 @@
     </form>
 
 </div>
+<script type='text/javascript'>
+    function showFileSize(id) {
+        var input, file;
 
+        input = document.getElementById(id);
+        file = input.files[0];
+
+        if(file.size>=5242880){
+            input.value="";
+            alert("File too Big, please select a file less than 5mb");
+        }
+    }
+
+
+</script>
 </body>
 </html>

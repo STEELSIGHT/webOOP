@@ -53,12 +53,12 @@
         <form method="post" enctype="multipart/form-data" th:action="@{~/teacher/add_post}">
             <label for="post">Введите текст поста:</label>
             <textarea name="post" id="post" rows="8" class="form-control mb-3" ></textarea>
-            <label for="'multipartFile">Выберите файлы:</label>
-            <input type="file" name="multipartFile" id="'multipartFile" class="form-control-file mb-2">
-            <input type="file" name="multipartFile"  class="form-control-file mb-2">
-            <input type="file" name="multipartFile"  class="form-control-file mb-2">
-            <input type="file" name="multipartFile"  class="form-control-file mb-2">
-            <input type="file" name="multipartFile"  class="form-control-file mb-2">
+            <label for="multipartFile">Выберите файлы:</label>
+            <input type="file" name="multipartFile" id="multipartFile" onchange='showFileSize(this.id);'  class="form-control-file mb-2">
+            <input type="file" name="multipartFile"  id="'multipartFile2" onchange='showFileSize(this.id);' class="form-control-file mb-2">
+            <input type="file" name="multipartFile" id="'multipartFile3" onchange='showFileSize(this.id);'  class="form-control-file mb-2">
+            <input type="file" name="multipartFile" id="'multipartFile4" onchange='showFileSize(this.id);' class="form-control-file mb-2">
+            <input type="file" name="multipartFile"  id="'multipartFile5" onchange='showFileSize(this.id);'  class="form-control-file mb-2">
             <div class="form-group mb-3">
                 <label for="inputState">Предмет,группа:</label>
                 <select id="inputState" class="form-control" name="subjectId" >
@@ -72,5 +72,20 @@
         </form>
     </div>
 </div>
+<script type='text/javascript'>
+    function showFileSize(id) {
+        var input, file;
+
+        input = document.getElementById(id);
+        file = input.files[0];
+
+        if(file.size>=5242880){
+            input.value="";
+            alert("File too Big, please select a file less than 5mb");
+        }
+    }
+
+
+</script>
 </body>
 </html>

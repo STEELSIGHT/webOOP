@@ -19,7 +19,7 @@
     <div class="collapse navbar-collapse" id="navbarsExample05">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" th:href="@{~/teacher}">Главная</a>
+            <a class="nav-link " th:href="@{~/student}">Главная</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link disabled" href="#">Посты</a>
@@ -32,32 +32,25 @@
         </form>
     </div>
 </nav>
-<div class="row justify-content-end">
-    <div class="col-md-auto">
-        <a th:href="@{~/teacher/add_post}" class="btn btn-lg btn-block btn-outline-primary" role="button"
-           aria-disabled="true">Добавить пост</a>
-    </div>
-</div>
 <div class="container">
     <div class="py-5 text-center">
-        <h2>Управление постами</h2>
-        <p class="lead">На данной странице вы можете добавить, редактировать посты для групп</p>
+        <h2>Просмотр постов от преподавателей</h2>
+        <p class="lead">На данной странице вы можете посмотреть посты для ваших предметов</p>
     </div>
-        <div th:each="subject : ${allSubjectForTeacher}">
-            <div class="row">
-                <div class="col col-lg-4 mb-4">
-                    <h2 th:text="${subject.getNameSubject()}"></h2>
-                </div>
-                <div class="col col-lg-4 mb-4">
-                    <h2 th:text="${subject.group.nameGroup}"></h2>
-                </div>
-                <div class="col col-lg-4 mb-4" >
-                    <a th:href="@{~/teacher/all_post(id=${subject.id})}" class="btn btn-lg btn-block btn-outline-primary " role="button"
-                       aria-disabled="true">Посмотреть все посты</a>
-                </div>
+    <div th:each="subject : ${allSubjectForStudent}">
+        <div class="row">
+            <div class="col col-lg-4 mb-4">
+                <h2 th:text="${subject.getNameSubject()}"></h2>
+            </div>
+            <div class="col col-lg-4 mb-4">
+                <h2 th:text="${subject.group.nameGroup}"></h2>
+            </div>
+            <div class="col col-lg-4 mb-4" >
+                <a th:href="@{~/student/all_post(id=${subject.id})}" class="btn btn-lg btn-block btn-outline-primary " role="button"
+                   aria-disabled="true">Посмотреть все посты</a>
             </div>
         </div>
+    </div>
 </div>
-
 </body>
 </html>
