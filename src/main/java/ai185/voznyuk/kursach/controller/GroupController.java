@@ -13,7 +13,7 @@ import javax.validation.Valid;
 @Controller
 public class GroupController {
     @Autowired
-    GroupService service;
+    private GroupService service;
     @GetMapping("/department/group")
     public String viewGroup(Model model){
         model.addAttribute("groups",service.getAllGroups());

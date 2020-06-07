@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Service
 public class GroupService {
-    GroupRepository repository;
+     private GroupRepository repository;
     @Autowired
     public void setRepository(GroupRepository repository) {
         this.repository = repository;

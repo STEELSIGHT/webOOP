@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class ListController {
     @Autowired
-    GroupService groupService;
+    private GroupService groupService;
     @Autowired
-    TeacherService teacherService;
+    private TeacherService teacherService;
     @Autowired
-    SubjectService subjectService;
+    private SubjectService subjectService;
     @GetMapping("/department/list")
     public String getViewList(Model model){
         model.addAttribute("groups",groupService.getAllGroups());

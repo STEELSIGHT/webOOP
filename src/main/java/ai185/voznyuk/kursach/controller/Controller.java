@@ -13,9 +13,9 @@ import java.util.Optional;
 @org.springframework.stereotype.Controller
 public class Controller {
     @Autowired
-    StudentService studentService;
+    private StudentService studentService;
     @Autowired
-    TeacherService teacherService;
+    private TeacherService teacherService;
     @GetMapping("/success")
     public String redirectAfterLogin(Principal principal){
         Optional<Student> student= studentService.findByUsername(principal.getName());
@@ -29,4 +29,19 @@ public class Controller {
         }
         return "redirect:/department";
     }
+    @GetMapping("/")
+        public String indexRedirect(Principal principal){
+            Optional<Student> student= studentService.findByUsername(principal.getName());
+            Optional<Teacher> teacher= teacherService.findByUsername(principal.getName());
+            if(student.isPresent()){
+                return "redirect:/student";
+            }
+             else if (teacher.isPresent()){
+                return "redirect:/teacher";
+            }
+             else if (principal.getName().equals("admin")){
+                return "redirect:/department";
+            }
+             return "redirect:/";
+        }
 }

@@ -15,6 +15,7 @@ public class File {
     @JoinColumn(name = "post_id",nullable = false)
     @JsonIgnore
     private TeacherPost teacherPost;
+
     public int getId() {
         return id;
     }

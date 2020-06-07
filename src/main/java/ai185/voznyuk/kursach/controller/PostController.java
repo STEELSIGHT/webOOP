@@ -2,7 +2,6 @@ package ai185.voznyuk.kursach.controller;
 
 import ai185.voznyuk.kursach.model.TeacherPost;
 import ai185.voznyuk.kursach.service.*;
-import org.apache.tomcat.util.http.fileupload.impl.SizeLimitExceededException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -50,7 +49,9 @@ public class PostController {
         return "add_post";
     }
     @PostMapping("/teacher/add_post")
-    public String addNewPost(@RequestParam(name = "multipartFile")  MultipartFile[] multipartFiles, @RequestParam String post, @RequestParam int subjectId) throws IOException {
+    public String addNewPost(@RequestParam(name = "multipartFile")  MultipartFile[] multipartFiles,
+                             @RequestParam String post,
+                             @RequestParam int subjectId) throws IOException {
        TeacherPost teacherPost= new TeacherPost(post,subjectService.findSubjectById(subjectId));
        teacherPostService.addNewPost(teacherPost);
        for(MultipartFile multipartFile:multipartFiles) {
@@ -86,7 +87,11 @@ public class PostController {
     }
 
     @PostMapping("/teacher/edit_post/{id}")
-    public String editTeacherPost(@PathVariable(name = "id") int idSubject, @RequestParam String post, @RequestParam int subjectId,@RequestParam int idTeacherPost,@RequestParam(name = "file") MultipartFile file) throws MaxUploadSizeExceededException, IOException {
+    public String editTeacherPost(@PathVariable(name = "id") int idSubject,
+                                  @RequestParam String post,
+                                  @RequestParam int subjectId,
+                                  @RequestParam int idTeacherPost,
+                                  @RequestParam(name = "file") MultipartFile file) throws MaxUploadSizeExceededException, IOException {
         TeacherPost teacherPost = teacherPostService.findTeacherPostById(idTeacherPost);
         teacherPost.setSubject(subjectService.findSubjectById(subjectId));
         teacherPost.setText(post);

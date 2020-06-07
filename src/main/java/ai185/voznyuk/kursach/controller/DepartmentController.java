@@ -19,11 +19,11 @@ import java.security.Principal;
 @Controller
 public class DepartmentController {
     @Autowired
-    GroupService groupService;
+    private GroupService groupService;
     @Autowired
-    StudentService studentService;
+    private StudentService studentService;
     @Autowired
-    TeacherService teacherService;
+    private TeacherService teacherService;
     @GetMapping("/department")
     public String viewDepartment(Model model){
         model.addAttribute("students",studentService.getAllStudent());

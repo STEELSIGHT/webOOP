@@ -39,11 +39,10 @@
     </div>
     <div th:each="subject : ${allSubjectForStudent}">
         <div class="row">
-            <div class="col col-lg-4 mb-4">
-                <h2 th:text="${subject.getNameSubject()}"></h2>
+            <div class="col col-lg-2 mb-4">
             </div>
             <div class="col col-lg-4 mb-4">
-                <h2 th:text="${subject.group.nameGroup}"></h2>
+                <h2 th:text="${subject.getNameSubject()}"></h2>
             </div>
             <div class="col col-lg-4 mb-4" >
                 <a th:href="@{~/student/all_post(id=${subject.id})}" class="btn btn-lg btn-block btn-outline-primary " role="button"

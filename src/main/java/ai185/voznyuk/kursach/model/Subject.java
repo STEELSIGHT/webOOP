@@ -26,6 +26,8 @@ public class Subject {
     private Group group;
     @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL)
     private List<TeacherPost> listTeacherPost;
+    @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL)
+    private List<HomeWork> listHomeWork;
     public int getId() {
         return id;
     }
@@ -71,5 +73,13 @@ public class Subject {
 
     public void setListTeacherPost(List<TeacherPost> listTeacherPost) {
         this.listTeacherPost = listTeacherPost;
+    }
+
+    public List<HomeWork> getListHomeWork() {
+        return listHomeWork;
+    }
+
+    public void setListHomeWork(List<HomeWork> listHomeWork) {
+        this.listHomeWork = listHomeWork;
     }
 }

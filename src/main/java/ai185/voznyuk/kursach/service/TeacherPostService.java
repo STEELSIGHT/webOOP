@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TeacherPostService {
     @Autowired
-    TeacherPostRepository teacherPostRepository;
+    private TeacherPostRepository teacherPostRepository;
 
     public void addNewPost(TeacherPost post){
         teacherPostRepository.save(post);

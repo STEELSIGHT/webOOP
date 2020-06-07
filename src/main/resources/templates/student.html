@@ -32,10 +32,45 @@
         </form>
     </div>
 </nav>
-<p th:text="${name}"></p>
-<form enctype="multipart/form-data" method="post">
-<input name="file" id="file" type="file">
-    <input type="submit" role="button">
-</form>
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>Управление домашним заданием</h2>
+        <p class="lead">На данной странице вы можете проверять и сдавать домашнее задание</p>
+    </div>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th class="text-justify">#</th>
+            <th class="text-justify">Предмет</th>
+            <th class="text-justify">Задание</th>
+            <th class="text-justify">Описание</th>
+            <th class="text-justify">Срок</th>
+            <th class="text-justify">Макс. Оценка</th>
+            <th class="text-justify">Сдать</th>
+            <th class="text-justify">Оценка</th>
+            <th class="text-justify">Отправлено</th>
+
+
+        </tr>
+        </thead>
+        <tbody>
+        <div th:each="subject:${allSubject}">
+        <tr th:each="homeWork : ${subject.getListHomeWork()}" >
+            <td class="align-middle"><span th:text="${homeWork.getId()}"/></td>
+            <td class="align-middle"><span th:text="${subject.getNameSubject()}"/></td>
+            <td class="align-middle"><span th:text="${homeWork.getNameHomeWork()}"/></td>
+            <td class="align-middle"><span th:text="${homeWork.getDescHomeWork()}"/></td>
+            <td class="align-middle"><span th:text="${homeWork.getCloseDate()}"/></td>
+            <td class="align-middle"><span th:text="${homeWork.getMaxMark()}"/></td>
+            <td class="align-middle"><a th:href="@{~/student/turn_in_work(id=${homeWork.getId()})}">Сдать</a></td>
+            <div th:each="homework:${allHomeWork}" th:if="${homework.getHomeWork().getId()}==${homeWork.getId()}">
+                <td class="align-middle"><span th:text="${homework.getMark()}"/></td>
+                <td class="align-middle"><span th:text="${homework.getSend()}"/></td>
+            </div>
+        </div>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

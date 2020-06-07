@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Service
 public class StudentService {
-    StudentRepository repository;
+    private StudentRepository repository;
 
     @Autowired
     public void setRepository(StudentRepository repository) {

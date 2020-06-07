@@ -5,6 +5,7 @@ import com.ibm.icu.text.Transliterator;
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "students")
@@ -32,9 +33,19 @@ public class Student {
     @Transient
     private boolean generatedUsername;
     private String role;
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private List<HomeWorkForStudent> allHomeWorkForStudent;
 
     public Student() {
         this.setGeneratedUsername(false);
+    }
+
+    public List<HomeWorkForStudent> getAllHomeWorkForStudent() {
+        return allHomeWorkForStudent;
+    }
+
+    public void setAllHomeWorkForStudent(List<HomeWorkForStudent> allHomeWorkForStudent) {
+        this.allHomeWorkForStudent = allHomeWorkForStudent;
     }
 
     public boolean isGeneratedUsername() {

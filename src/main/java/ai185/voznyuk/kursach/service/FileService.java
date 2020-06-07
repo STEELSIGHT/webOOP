@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class FileService {
     @Autowired
-    FileRepository fileRepository;
+     private FileRepository fileRepository;
 
     public void addNewFile(File file){
         fileRepository.save(file);
