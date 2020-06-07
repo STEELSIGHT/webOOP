@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Проверка</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Дистанционное обучение</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05"
+            aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExample05">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#" >Главная</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{~/teacher/teacher_post}">Посты</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{~/teacher/home_work}" >Домашнее заданее</a>
+            </li>
+
+        </ul>
+        <form class="form-inline my-2 my-lg-0" action="#" th:action="@{/logout}" method="post">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Выйти</button>
+        </form>
+    </div>
+</nav>
+<div class="container">
+    <div class="py-5 text-center">
+        <h2><span th:text="${thisHomeWork.getStudent().getLastName()}"></span> <span th:text="${thisHomeWork.getStudent().getFirstName()}"></span> <span th:text="${thisHomeWork.getStudent().getPatronymic()}"></span></h2>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <div class=" mb-3">
+                <h2>ДЗ #<span th:text="${thisHomeWork.getId()}"></span></h2>
+            </div>
+            <p  th:text="${thisHomeWork.getText()}" class="border border-primary mb-3 p-3"></p>
+            <table class="table table-borderless mb-3">
+                <thead>
+                <tr>
+                    <th>Файлы:</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="s3file : ${thisHomeWork.getFileStudentList()}">
+                    <td th:text="${s3file.getName()}"/>
+                    <td><a th:href="@{'/download/'+ ${s3file.getName()}}"> Download </a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        </div>
+        <div class="container"><hr class="mb-5" align="center" width="90%" size="50" color="#dddddd" /></div>
+    <form  method="post">
+        <input class="form-control mb-3" type="text" name="mark" th:value="${thisHomeWork.getMark()}">
+        <small class="text-danger" th:if="${error}" th:text="${error}"/>
+        <button class="btn btn-primary btn-lg btn-block mb-3" type="submit" value="Submit">Оценить</button>
+    </form>
+    </div>
+</body>
+</html>
